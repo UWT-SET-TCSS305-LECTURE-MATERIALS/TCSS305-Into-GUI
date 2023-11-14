@@ -1,7 +1,6 @@
 package edu.uw.tcss.view.layouts;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.io.Serial;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -110,6 +109,6 @@ public class CompositeLayout extends JPanel {
      * @param theArgs Command line arguments, ignored.
      */
     public static void main(final String[] theArgs) {
-        EventQueue.invokeLater(CompositeLayout::createAndShowGui);
+        javax.swing.SwingUtilities.invokeLater(CompositeLayout::createAndShowGui);
     }
 }

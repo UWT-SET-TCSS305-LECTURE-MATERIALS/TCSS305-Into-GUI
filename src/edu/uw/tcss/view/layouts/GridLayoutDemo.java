@@ -1,7 +1,6 @@
 package edu.uw.tcss.view.layouts;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.io.Serial;
 import javax.swing.JButton;
@@ -99,7 +98,7 @@ public class GridLayoutDemo extends JPanel {
      * @param theArgs Command line arguments, ignored.
      */
     public static void main(final String[] theArgs) {
-        EventQueue.invokeLater(GridLayoutDemo::createAndShowGui);
+        javax.swing.SwingUtilities.invokeLater(GridLayoutDemo::createAndShowGui);
     }
 
 }

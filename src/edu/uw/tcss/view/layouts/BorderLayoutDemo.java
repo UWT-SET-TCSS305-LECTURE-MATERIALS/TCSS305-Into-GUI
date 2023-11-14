@@ -2,7 +2,6 @@ package edu.uw.tcss.view.layouts;
 
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.io.Serial;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -109,7 +108,7 @@ public class BorderLayoutDemo extends JPanel {
      * @param theArgs Command line arguments, ignored.
      */
     public static void main(final String[] theArgs) {
-        EventQueue.invokeLater(BorderLayoutDemo::createAndShowGui);
+        javax.swing.SwingUtilities.invokeLater(BorderLayoutDemo::createAndShowGui);
     }
 
 }

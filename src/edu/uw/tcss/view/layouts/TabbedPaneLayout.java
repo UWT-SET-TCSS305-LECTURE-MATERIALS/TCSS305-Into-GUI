@@ -1,6 +1,5 @@
 package edu.uw.tcss.view.layouts;
 
-import java.awt.EventQueue;
 import java.io.Serial;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -103,6 +102,6 @@ public class TabbedPaneLayout extends JPanel {
      * @param theArgs Command line arguments, ignored.
      */
     public static void main(final String[] theArgs) {
-        EventQueue.invokeLater(TabbedPaneLayout::createAndShowGui);
+        javax.swing.SwingUtilities.invokeLater(TabbedPaneLayout::createAndShowGui);
     }
 }

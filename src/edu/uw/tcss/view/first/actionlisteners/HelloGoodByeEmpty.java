@@ -1,7 +1,6 @@
 package edu.uw.tcss.view.first.actionlisteners;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.io.Serial;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +14,17 @@ import javax.swing.JPanel;
  * @version Autumn 2023
  */
 public class HelloGoodByeEmpty extends JPanel {
+
+    /*
+     * JPanel implements Serializable.
+     * We may cover Serializable later this quarter when time allows.
+     * For now just have Eclipse generate a serial version UID as shown below.
+     * If you would like to learn about Serialization check the following two links:
+     *
+     * http://www.tutorialspoint.com/java/java_serialization.htm
+     *
+     * http://www.javapractices.com/topic/TopicAction.do?Id=45
+     */
 
     /**
      * A generated serial version UID for object Serialization.
@@ -108,9 +118,9 @@ public class HelloGoodByeEmpty extends JPanel {
      * @param theArgs Command line arguments, ignored.
      */
     public static void main(final String[] theArgs) {
-//        EventQueue.invokeLater(() -> createAndShowGui());
+//        javax.swing.SwingUtilities.invokeLater(() -> createAndShowGui());
         // -OR-
-        EventQueue.invokeLater(HelloGoodByeEmpty::createAndShowGui);
+        javax.swing.SwingUtilities.invokeLater(HelloGoodByeEmpty::createAndShowGui);
     }   
     
     /**
