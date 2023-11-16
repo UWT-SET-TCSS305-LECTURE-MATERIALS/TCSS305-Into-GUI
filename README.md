@@ -1,18 +1,19 @@
-# TCSS305-hw-template
+# TCSS305-Intro-GUI
 
-TCSS 305 Assignment Template
+TCSS 305 Introduction to GUI and Event Driven Programming
 
-TCSS 305 - Instructor
+TCSS 305 - Charles Bryan
 
 Autumn 2023
 
-This is the starter code template for TCSS 305 assignments.
+This is the example code for multiple GUI concepts and components.
 
 Included:
 
-- Checkstyle rule structure
-- IntelliJ Clean-code rules
-- Package structure
-- Driver class with LOGGER object and examples
-- Unit test folder
-- .gitignore and README.md
+- First Event handlers - ActionListeners (first.actionlisteners package)
+- Swing Layout managers (layouts package)
+- Mousse and Key Listeners (layouts.menu and keylisteners packages)
+- 2D Graphics (graphics package)
+- 2D Graphics animation (graphics.animation package)
+
+*Note: most classes are standalone and include a dedicated main method for individual execution. 
