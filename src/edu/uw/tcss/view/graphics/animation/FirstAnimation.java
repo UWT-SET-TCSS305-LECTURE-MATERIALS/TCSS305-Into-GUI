@@ -68,9 +68,9 @@ public class FirstAnimation extends JPanel {
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setLayout(new BorderLayout());
-        final JButton move = new JButton("Move");
+        final JButton butt = new JButton("Move");
 
-        move.addActionListener(theEvent -> {
+        butt.addActionListener(theEvent -> {
             final Rectangle2D bounds = myShape.getBounds2D();
             myShape.setFrame(bounds.getX() + DISTANCE_TO_MOVE,
                                bounds.getY() + DISTANCE_TO_MOVE,
@@ -81,7 +81,7 @@ public class FirstAnimation extends JPanel {
         });
         
         
-        add(move, BorderLayout.SOUTH);       
+        add(butt, BorderLayout.SOUTH);
     }
 
     /**

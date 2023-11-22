@@ -37,7 +37,10 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 import java.io.Serial;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -130,9 +133,9 @@ public class MenuExample extends JPanel {
         myBlankArea.addMouseListener(mia);
         myBlankArea.addMouseMotionListener(mia);
         
-        addMouseListener(mia);
-        addMouseMotionListener(mia);
-        
+//        addMouseListener(mia);
+//        addMouseMotionListener(mia);
+//
         setBorder(BorderFactory.createEmptyBorder(
                 BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE));
     }
@@ -355,6 +358,12 @@ public class MenuExample extends JPanel {
         newContentPane.setOpaque(true); //content panes must be opaque
         frame.setContentPane(newContentPane);
         frame.setJMenuBar(newContentPane.createMenu(frame));
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.out.println("Weeeeeeeeee");
+            }
+        });
         
         //Display the window.
         frame.pack();

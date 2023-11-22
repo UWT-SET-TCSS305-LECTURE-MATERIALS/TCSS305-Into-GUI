@@ -40,7 +40,7 @@ public class EllipseAndRectanglePanel extends JPanel {
     private static final int HEIGHT = 400;
 
     /** The stroke width in pixels. */
-    private static final int STROKE_WIDTH = 2;
+    private static final int STROKE_WIDTH = 9;
 
     /** The width for the rectangle. */
     private static final int RECTANGLE_WIDTH = 50;
@@ -91,11 +91,11 @@ public class EllipseAndRectanglePanel extends JPanel {
         g2d.draw(rectangle);
 
         final Shape ellipse2 = new Ellipse2D.Double(5, 5, 40, 40);
-        
+
         g2d.setStroke(new BasicStroke(STROKE_WIDTH));
         g2d.setPaint(Color.BLUE);
         g2d.fill(ellipse2);
-        
+
         g2d.setPaint(Color.MAGENTA);
         g2d.draw(ellipse2);
 

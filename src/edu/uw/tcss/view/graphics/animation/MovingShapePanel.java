@@ -43,7 +43,7 @@ public class MovingShapePanel extends JPanel {
     public static final Dimension PREFERRED_SIZE = new Dimension(800, 450);
 
     /** The default delay (in milliseconds) for the move timer. */
-    public static final int MOVE_DELAY = 10;
+    public static final int MOVE_DELAY = 100;
 
     /** The initial delay (in milliseconds) for the move timer. */
     public static final int INITIAL_DELAY = 0;
@@ -93,6 +93,7 @@ public class MovingShapePanel extends JPanel {
         myMoveTimer.setInitialDelay(INITIAL_DELAY); 
 
         setupAppearance();
+        myMoveTimer.start();
     }
 
     /** Sets up the appearance of the panel and frame. */
