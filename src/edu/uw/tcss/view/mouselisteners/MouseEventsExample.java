@@ -32,16 +32,25 @@
 package edu.uw.tcss.view.mouselisteners;
 
 import edu.uw.tcss.logging.LoggerManager;
-
-import javax.swing.*;
-import javax.swing.event.MouseInputAdapter;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.Serial;
-
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JColorChooser;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.MouseInputAdapter;
 
 
 /**
@@ -51,7 +60,7 @@ import java.io.Serial;
  * @author Charles Bryan
  * @version Autumn 2023
  */
-public class MenuExample extends JPanel {
+public class MouseEventsExample extends JPanel {
 
     /**
      * A generated serial version UID for object Serialization.
@@ -61,7 +70,7 @@ public class MenuExample extends JPanel {
     private static final long serialVersionUID = 8452917670991316606L; 
     
     /** Saves the systems newline character. */
-    private static final String NEWLINE = System.getProperty("line.separator");
+    private static final String NEWLINE = System.lineSeparator();
     
     /** The default border size. */
     private static final int BORDER_SIZE = 20;
@@ -70,7 +79,7 @@ public class MenuExample extends JPanel {
     private static final int TEXT_AREA_ROWS = 15;
     
     /** The number of columns in the text area. */
-    private static final int TEXT_AREA_COLS = 40;
+    private static final int TEXT_AREA_COLS = 60;
     
     /** The area for the mouse demonstration. */
     private final BlankArea myBlankArea;
@@ -84,7 +93,7 @@ public class MenuExample extends JPanel {
     /**
      * Constructs a MouseMotionEventDemo.
      */
-    public MenuExample() {
+    public MouseEventsExample() {
         super(new GridLayout(0, 1));
         
         //Instantiate these Components in the constructor but 
@@ -94,32 +103,35 @@ public class MenuExample extends JPanel {
         myLogging = new JCheckBoxMenuItem();
         
         setUpComponents();
+        layoutComponents();
+        addListeners();
     }
-    
+
     /**
      * Lay out the components.
      */
     private void setUpComponents() {
-        
+        myTextArea.setEditable(false);
+
+        setBorder(BorderFactory.createEmptyBorder(
+                BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE));
+    }
+
+    private void layoutComponents() {
         add(myBlankArea);
 
-        myTextArea.setEditable(false);
         final JScrollPane scrollPane = new JScrollPane(myTextArea,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        
+
         add(scrollPane);
-        
+    }
+
+    private void addListeners() {
         final MouseInputAdapter mia = new MyMouseInputAdapter();
         //Register for mouse events on blankArea and panel.
         myBlankArea.addMouseListener(mia);
         myBlankArea.addMouseMotionListener(mia);
-        
-//        addMouseListener(mia);
-//        addMouseMotionListener(mia);
-//
-        setBorder(BorderFactory.createEmptyBorder(
-                BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE));
     }
     
     /**
@@ -132,81 +144,22 @@ public class MenuExample extends JPanel {
      */
     private JMenuBar createMenu(final JFrame theFrame) {
         final JMenuBar menuBar = new JMenuBar();
-         
-        menuBar.add(buildFileMenu(theFrame));
+
         menuBar.add(buildColorButtonMenu());
         menuBar.add(buildLoggingMenu());
         
         return menuBar;
     }
-    
-    /**
-     * Builds a menu with some options. 
-     * 
-     * @param theFrame the containing JFrame of this menu bar
-     * @return a "file" menu with some menu items
-     */
-    private JMenu buildFileMenu(final JFrame theFrame) {
-        final JMenu menu = new JMenu("File");
-        menu.setMnemonic(KeyEvent.VK_F);
-        
-        menu.add(buildSubMenu());
-        menu.addSeparator();
-        
-        /*
-         * Scale the image from 32x32 pixels down to 12x12 pixels.
-         * https://docs.oracle.com/javase/8/docs/api/java/awt/Image.html
-         */
-        ImageIcon icon = new ImageIcon("./images/ic_walk.png");
-        final Image smallImage = icon.getImage().getScaledInstance(
-                                              12, -1, Image.SCALE_SMOOTH);
-        icon = new ImageIcon(smallImage);
-        
-        final JMenuItem exitItem = new JMenuItem("Exit", icon);
-        exitItem.setMnemonic(KeyEvent.VK_X);
-        exitItem.addActionListener(theEvent ->
-                theFrame.dispatchEvent(new WindowEvent(theFrame, WindowEvent.WINDOW_CLOSING)));
-        
-        menu.add(exitItem);
-        return menu;
-    }
-    
-    /**
-     * Builds a menu to demonstrate sub menus. 
-     * @return a menu with several simple menu items. 
-     */
-    private JMenu buildSubMenu() {
-        final JMenu subMenu = new JMenu("Subs!");
-        
-        subMenu.add(buildSimpleMenuItem("Hello"));
-        subMenu.add(buildSimpleMenuItem("World"));
-        subMenu.add(buildSimpleMenuItem("Menus!"));
-        
-        return subMenu;
-    }
-    
-    /**
-     * Builds a simple menu item. 
-     * 
-     * @param theText the text to appear on the menu item
-     * @return a simple menu item
-     */
-    private JMenuItem buildSimpleMenuItem(final String theText) {
-        final JMenuItem item = new JMenuItem(theText);
-        item.addActionListener(theEvent ->
-                JOptionPane.showMessageDialog(MenuExample.this, theText));
-        return item;
-    }
-    
+
     /**
      * Creates a menu that demonstrates JRadioButtonMenuItems.
-     * 
+     *
      * @return the menu
      */
     private JMenu buildColorButtonMenu() {
         final JMenu colorMenu = new JMenu("Color");
         colorMenu.setMnemonic(KeyEvent.VK_C);
-        
+
         final JMenuItem chooseColorItem = new JMenuItem("Choose Color");
         final ButtonGroup group = new ButtonGroup();
         chooseColorItem.addActionListener(theEvent -> {
@@ -216,32 +169,9 @@ public class MenuExample extends JPanel {
                 group.clearSelection();
             }
         });
-        
-        colorMenu.add(chooseColorItem);
-        colorMenu.addSeparator();
 
-        colorMenu.add(createColorItems("Red", Color.RED, group));
-        colorMenu.add(createColorItems("Blue", Color.BLUE, group));
-        colorMenu.add(createColorItems("Green", Color.GREEN, group));
-        
+        colorMenu.add(chooseColorItem);
         return colorMenu;
-    }
-    
-    /**
-     * Creates a JRadioButtonMenuItem with a color action. 
-     * 
-     * @param theName the text to go on this item
-     * @param theColor the color to set the action
-     * @param theGroup the ButtonGroup to add this Radio Button to
-     * @return a a JRadioButtonMenuItem with a color action
-     */
-    private JRadioButtonMenuItem createColorItems(final String theName, 
-            final Color theColor, final ButtonGroup theGroup) {
-        
-        final JRadioButtonMenuItem colorItem = new JRadioButtonMenuItem(theName);
-        theGroup.add(colorItem);
-        colorItem.addActionListener(theEvent -> myBlankArea.setBackground(theColor));
-        return colorItem;
     }
     
     /**
@@ -322,7 +252,7 @@ public class MenuExample extends JPanel {
         
         //Schedule a job for the event dispatch thread:
         //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(MenuExample::createAndShowGUI);
+        javax.swing.SwingUtilities.invokeLater(MouseEventsExample::createAndShowGUI);
     }
     
     /**
@@ -332,20 +262,14 @@ public class MenuExample extends JPanel {
      */
     private static void createAndShowGUI() {
         //Create and set up the window.
-        final JFrame frame = new JFrame("MouseMotionEventDemo");
+        final JFrame frame = new JFrame("Mouse Event Demo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Create and set up the content pane.
-        final MenuExample newContentPane = new MenuExample();
+        final MouseEventsExample newContentPane = new MouseEventsExample();
         newContentPane.setOpaque(true); //content panes must be opaque
         frame.setContentPane(newContentPane);
         frame.setJMenuBar(newContentPane.createMenu(frame));
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.out.println("Weeeeeeeeee");
-            }
-        });
         
         //Display the window.
         frame.pack();
