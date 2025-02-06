@@ -4,12 +4,7 @@
 
 package edu.uw.tcss.view.graphics.animation;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serial;
@@ -98,7 +93,13 @@ public class FirstAnimation extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                              RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g2d.setPaint(Color.BLUE);
+        final Point start = new Point((int)myShape.getX(), (int)myShape.getY());
+        final Point end = new Point((int)myShape.getX() + SHAPE_WIDTH, (int)myShape.getY() + SHAPE_HEIGHT);
+
+        final GradientPaint gradient =
+                new GradientPaint(start, Color.BLUE, end, Color.GREEN, true);
+
+        g2d.setPaint(gradient);
         g2d.fill(myShape);
     }
 

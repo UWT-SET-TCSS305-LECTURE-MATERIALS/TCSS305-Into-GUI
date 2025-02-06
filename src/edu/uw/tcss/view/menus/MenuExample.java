@@ -29,7 +29,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */ 
 
-package edu.uw.tcss.view.layouts.menu;
+package edu.uw.tcss.view.menus;
 
 import edu.uw.tcss.logging.LoggerManager;
 import java.awt.Color;
@@ -39,8 +39,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.event.WindowStateListener;
 import java.io.Serial;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;

@@ -30,13 +30,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
  
-package edu.uw.tcss.view.layouts.menu;
+package edu.uw.tcss.view.mouselisteners;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import javax.swing.*;
+import java.awt.*;
 import java.io.Serial;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 
 /**
  * A Helper class for some examples.
