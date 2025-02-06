@@ -4,29 +4,17 @@
  * TCSS 305
  */
 
-package edu.uw.tcss.view.graphics;
+package edu.uw.tcss.view.graphics.animation;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.RadialGradientPaint;
-import java.awt.RenderingHints;
-import java.awt.Shape;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serial;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import javax.swing.event.MouseInputAdapter;
 
 /**
  * A program to demonstrate the use of a Swing timer.
@@ -57,6 +45,7 @@ public class GradientExample extends JPanel {
     public static final int ANIMATION_STEP = 1;
 
     /** A generated version ID for Serialization. */
+    @Serial
     private static final long serialVersionUID = -6257548485239497170L;
 
     // Instance fields
@@ -93,7 +82,7 @@ public class GradientExample extends JPanel {
     /** Starts the timer. */
     public void start() {
 //        myMoveTimer.start();
-        myColorTimer.start();
+//        myColorTimer.start();
     }
 
     @Override
@@ -106,30 +95,30 @@ public class GradientExample extends JPanel {
 
         final Shape s = new Rectangle2D.Double(0, 0, 400, 400);
 
-//        final Point2D start = new Point2D.Double(myX + 100, myX + 100);
-//        final Point2D end = new Point2D.Double(myX + 200, myX + 200);
-//
-//        final GradientPaint gradient =
-//                        new GradientPaint(start, new Color(30, 100, 100), end, Color.WHITE, true);
-//
-//        g2d.setPaint(gradient);
-//        g2d.fill(s);
+        final Point2D start = new Point2D.Double(myX + 100, myX + 100);
+        final Point2D end = new Point2D.Double(myX + 200, myX + 200);
 
+        final GradientPaint gradient =
+                        new GradientPaint(start, new Color(30, 100, 100), end, Color.WHITE, true);
 
-        final Point2D center = new Point2D.Float(200, 200);
-        final float radius = 200;
-        final float[] dist = {0.0f, myInner, 1.0f};
-        final Color[] colors = {Color.RED, Color.YELLOW, Color.BLACK};
-
-
-        final RadialGradientPaint p =
-                new RadialGradientPaint(center, radius, dist, colors);
-
-        g2d.setPaint(p);
+        g2d.setPaint(gradient);
         g2d.fill(s);
+
+
+//        final Point2D center = new Point2D.Float(200, 200);
+//        final float radius = 200;
+//        final float[] dist = {0.0f, myInner, 1.0f};
+//        final Color[] colors = {Color.RED, Color.YELLOW, Color.BLACK};
 //
-        g2d.setPaint(Color.BLUE);
-        g2d.fillOval(300, 300, 5, 5);
+//
+//        final RadialGradientPaint p =
+//                new RadialGradientPaint(center, radius, dist, colors);
+//
+//        g2d.setPaint(p);
+//        g2d.fill(s);
+//
+//        g2d.setPaint(Color.BLUE);
+//        g2d.fillOval(300, 300, 5, 5);
 
     }
 

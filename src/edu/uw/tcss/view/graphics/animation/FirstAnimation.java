@@ -4,7 +4,12 @@
 
 package edu.uw.tcss.view.graphics.animation;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serial;
@@ -45,8 +50,9 @@ public class FirstAnimation extends JPanel {
     /** The distance to move the Shape. */
     private static final int DISTANCE_TO_MOVE = 10;
 
-    /** The movable Shape */
     private final Ellipse2D myShape;
+
+    private final JButton myButt;
 
     /**
      * Constructs a new ellipse panel.
@@ -55,29 +61,36 @@ public class FirstAnimation extends JPanel {
         super();
 
         myShape = new Ellipse2D.Double(0, 0, SHAPE_WIDTH, SHAPE_HEIGHT);
+        myButt = new JButton("Move");
 
+        setupComponents();
         layoutComponents();
+        addListeners();
     }
-    
-    private void layoutComponents() {
+
+    private void setupComponents() {
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setLayout(new BorderLayout());
-        final JButton butt = new JButton("Move");
+    }
 
-        butt.addActionListener(theEvent -> {
+    private void layoutComponents() {
+        add(myButt, BorderLayout.SOUTH);
+    }
+
+    private void addListeners() {
+        myButt.addActionListener(theEvent -> {
             final Rectangle2D bounds = myShape.getBounds2D();
             myShape.setFrame(bounds.getX() + DISTANCE_TO_MOVE,
-                               bounds.getY() + DISTANCE_TO_MOVE,
-                               bounds.getWidth(),
-                               bounds.getHeight());
-            
+                    bounds.getY() + DISTANCE_TO_MOVE,
+                    bounds.getWidth(),
+                    bounds.getHeight());
+
             repaint();
         });
-        
-        
-        add(butt, BorderLayout.SOUTH);
     }
+
+
 
     /**
      * Paints some ellipses.
@@ -93,13 +106,7 @@ public class FirstAnimation extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                              RenderingHints.VALUE_ANTIALIAS_ON);
 
-        final Point start = new Point((int)myShape.getX(), (int)myShape.getY());
-        final Point end = new Point((int)myShape.getX() + SHAPE_WIDTH, (int)myShape.getY() + SHAPE_HEIGHT);
-
-        final GradientPaint gradient =
-                new GradientPaint(start, Color.BLUE, end, Color.GREEN, true);
-
-        g2d.setPaint(gradient);
+        g2d.setPaint(Color.BLUE);
         g2d.fill(myShape);
     }
 

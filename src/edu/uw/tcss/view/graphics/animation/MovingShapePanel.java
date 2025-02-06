@@ -43,13 +43,13 @@ public class MovingShapePanel extends JPanel {
     public static final Dimension PREFERRED_SIZE = new Dimension(800, 450);
 
     /** The default delay (in milliseconds) for the move timer. */
-    public static final int MOVE_DELAY = 1;
+    public static final int MOVE_DELAY = 18;
 
     /** The initial delay (in milliseconds) for the move timer. */
     public static final int INITIAL_DELAY = 0;
 
     /** The animation step (in pixels). */
-    public static final int ANIMATION_STEP = 4;
+    public static final int ANIMATION_STEP = 1;
 
     /**
      * A generated serial version UID for object Serialization.
