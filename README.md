@@ -20,4 +20,6 @@ Packages, all under `edu.uw.tcss.view`:
 
 `edu.uw.tcss.logging` holds the `LoggerManager` helper.
 
+`edu.uw.tcss.app` holds `PayrollBatch` and `PayrollTerminal`, the same payroll job run as a batch program and as an interactive terminal program, for contrast with event-driven GUIs.
+
 Most classes are standalone and include their own `main` method, so you can run each one by itself.
