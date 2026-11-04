@@ -1,7 +1,6 @@
 package edu.uw.tcss.view.first.actionlisteners;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serial;
@@ -14,7 +13,7 @@ import javax.swing.JPanel;
  * Demonstrating ActionListeners.
  * 
  * @author Charles Bryan
- * @version Autumn 2023
+ * @version Autumn 2026
  */
 public class HelloGoodBye extends JPanel {
 
@@ -81,14 +80,16 @@ public class HelloGoodBye extends JPanel {
     /**
      * Add actionListeners to the buttons. 
      */
-    @SuppressWarnings("Convert2Lambda") //suppresed this warning as this is JUST an example.
+    // Convert2Lambda: the anonymous class is the example, so it stays.
+    // DanglingJavadoc: Checkstyle requires Javadoc on the local class below, IntelliJ calls it dangling.
+    @SuppressWarnings({"Convert2Lambda", "DanglingJavadoc"})
     private void addListeners() {
         
         //Add an action listener from an inner class. Page 329
         myHelloButton.addActionListener(new MyHelloListener());
         
-        /*
-         * This is an example of a Local Inner class. This class
+        /**
+         * An example of a local inner class. This class
          * is created HERE in THIS method. Think about what/where
          * has access to it. Where are the viable locations that one
          * can instantiate a MyGoodByeListener?
@@ -97,7 +98,7 @@ public class HelloGoodBye extends JPanel {
         class MyGoodByeListener implements ActionListener {
 
             @Override
-            public void actionPerformed(final ActionEvent theEvent) {
+            public void actionPerformed(final ActionEvent event) {
                 myMessageLabel.setText("Goodbye");
             }
         }
@@ -106,18 +107,13 @@ public class HelloGoodBye extends JPanel {
         //Add an action listener using an anonymous inner class. Page 342
         myWaitButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(final ActionEvent theEvent) {
+            public void actionPerformed(final ActionEvent event) {
                 myMessageLabel.setText("Wait! Don't go yet, there's more...");
             }
         });
         
         //Add an action listener as a Lambda expression. Page 314
-        myLambdaButton.addActionListener(theEvent -> { 
-                myMessageLabel.setText("Java 8 is fantastic!");
-                myMessageLabel.setForeground(Color.BLUE);
-                myMessageLabel.setBackground(Color.ORANGE);
-            }
-        );
+        myLambdaButton.addActionListener(event -> myMessageLabel.setText("Java 8 is fantastic!"));
         
         //Add an action listener using a method reference. Page 319
         myMethodReferenceButton.addActionListener(this::methodReference);
@@ -127,9 +123,9 @@ public class HelloGoodBye extends JPanel {
     /**
      * A method reference. The method header must match the functional interface's
      * single abstract method signature, not including name. Note the PMD warning here.
-     * @param theEvent the Action event is not used here
+     * @param event the Action event is not used here
      */
-    private void methodReference(final ActionEvent theEvent) { //NOPMD  (only acceptable here)
+    private void methodReference(final ActionEvent event) { //NOPMD  (only acceptable here)
         myMessageLabel.setText("Now that's some strange looking syntax.");
     }
     
@@ -160,9 +156,9 @@ public class HelloGoodBye extends JPanel {
      * It is OK, even typical to include a main method 
      * in the same class file as a GUI for testing purposes. 
      * 
-     * @param theArgs Command line arguments, ignored.
+     * @param args Command line arguments, ignored.
      */
-    public static void main(final String[] theArgs) {
+    public static void main(final String[] args) {
 //        javax.swing.SwingUtilities.invokeLater(() -> createAndShowGui());
         // -OR-
         javax.swing.SwingUtilities.invokeLater(HelloGoodBye::createAndShowGui);
@@ -202,12 +198,12 @@ public class HelloGoodBye extends JPanel {
      * An Inner class that is an ActionListener for Button clicks. 
      * 
      * @author Charles Bryan
-     * @version Autumn 2015
+     * @version Autumn 2026
      */
     private final class MyHelloListener implements ActionListener {
 
         @Override
-        public void actionPerformed(final ActionEvent theEvent) {
+        public void actionPerformed(final ActionEvent event) {
             myMessageLabel.setText("Hello");
         }  
     }

@@ -21,7 +21,7 @@ import javax.swing.JPanel;
  * Demonstrates simple animation.
  * 
  * @author Charles Bryan
- * @version 1.2
+ * @version Autumn 2026
  */
 public class FirstAnimation extends JPanel {
 
@@ -79,15 +79,20 @@ public class FirstAnimation extends JPanel {
     }
 
     private void addListeners() {
-        myButt.addActionListener(theEvent -> {
-            final Rectangle2D bounds = myShape.getBounds2D();
-            myShape.setFrame(bounds.getX() + DISTANCE_TO_MOVE,
-                    bounds.getY() + DISTANCE_TO_MOVE,
-                    bounds.getWidth(),
-                    bounds.getHeight());
+        myButt.addActionListener(event -> moveShape());
+    }
 
-            repaint();
-        });
+    /**
+     * Moves the shape down and to the right, then repaints.
+     */
+    private void moveShape() {
+        final Rectangle2D bounds = myShape.getBounds2D();
+        myShape.setFrame(bounds.getX() + DISTANCE_TO_MOVE,
+                bounds.getY() + DISTANCE_TO_MOVE,
+                bounds.getWidth(),
+                bounds.getHeight());
+
+        repaint();
     }
 
 
@@ -95,12 +100,12 @@ public class FirstAnimation extends JPanel {
     /**
      * Paints some ellipses.
      * 
-     * @param theGraphics The graphics context to use for painting.
+     * @param graphics The graphics context to use for painting.
      */
     @Override
-    public void paintComponent(final Graphics theGraphics) {
-        super.paintComponent(theGraphics);
-        final Graphics2D g2d = (Graphics2D) theGraphics;
+    public void paintComponent(final Graphics graphics) {
+        super.paintComponent(graphics);
+        final Graphics2D g2d = (Graphics2D) graphics;
 
         // for better graphics display
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -143,9 +148,9 @@ public class FirstAnimation extends JPanel {
     /**
      * Creates and displays an EllipsePanel.
      * 
-     * @param theArgs Command line arguments (ignored).
+     * @param args Command line arguments (ignored).
      */
-    public static void main(final String... theArgs) {
+    public static void main(final String... args) {
         javax.swing.SwingUtilities.invokeLater(FirstAnimation::createAndShowGui);
     }
 }

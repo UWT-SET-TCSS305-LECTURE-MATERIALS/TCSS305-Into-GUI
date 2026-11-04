@@ -9,7 +9,7 @@ import javax.swing.JPanel;
  * Demonstrating FlowLayout.
  * 
  * @author Charles Bryan
- * @version Autumn 2023
+ * @version Autumn 2026
  */
 public class FlowLayoutDemo extends JPanel {
 
@@ -44,13 +44,13 @@ public class FlowLayoutDemo extends JPanel {
     
     /**
      * Initializes all of the fields.
-     * @param theButtonLabels the labels to be used on buttons in this panel.
+     * @param buttonLabels the labels to be used on buttons in this panel.
      */
-    public FlowLayoutDemo(final String[] theButtonLabels) {
+    public FlowLayoutDemo(final String[] buttonLabels) {
         super();
 
-        myNumberOfButtons = theButtonLabels.length;
-        myButtonLabels = theButtonLabels.clone();
+        myNumberOfButtons = buttonLabels.length;
+        myButtonLabels = buttonLabels.clone();
 
         layoutComponents();
     }
@@ -113,9 +113,9 @@ public class FlowLayoutDemo extends JPanel {
      * It is OK, even typical to include a main method 
      * in the same class file as a GUI for testing purposes. 
      * 
-     * @param theArgs Command line arguments, ignored.
+     * @param args Command line arguments, ignored.
      */
-    public static void main(final String[] theArgs) {
+    public static void main(final String[] args) {
         javax.swing.SwingUtilities.invokeLater(FlowLayoutDemo::createAndShowGui);
     }
 

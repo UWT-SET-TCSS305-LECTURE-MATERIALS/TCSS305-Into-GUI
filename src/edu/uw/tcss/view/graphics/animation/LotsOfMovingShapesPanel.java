@@ -35,7 +35,7 @@ import javax.swing.event.MouseInputAdapter;
  * 
  * @author Alan Fowler
  * @author Charles Bryan added the Lots part
- * @version 1.3
+ * @version Autumn 2026
  */
 public final class LotsOfMovingShapesPanel extends JPanel {
 
@@ -59,10 +59,10 @@ public final class LotsOfMovingShapesPanel extends JPanel {
     /** The animation step (in pixels). */
     public static final int ANIMATION_STEP = 1;
     
-    /** The name says it all, Go Huskeys! */
+    /** The name says it all. Go Huskies. */
     private static final String UW_PURPLE = "#4B2E83";
     
-    /** The name says it all, Go Huskeys! */
+    /** The name says it all. Go Huskies. */
     private static final String UW_GOLD = "#B7A57A";
 
     /**
@@ -118,9 +118,9 @@ public final class LotsOfMovingShapesPanel extends JPanel {
     }
 
     @Override
-    public void paintComponent(final Graphics theGraphics) {
-        super.paintComponent(theGraphics);
-        final Graphics2D g2d = (Graphics2D) theGraphics;
+    public void paintComponent(final Graphics graphics) {
+        super.paintComponent(graphics);
+        final Graphics2D g2d = (Graphics2D) graphics;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                              RenderingHints.VALUE_ANTIALIAS_ON);
         
@@ -166,9 +166,9 @@ public final class LotsOfMovingShapesPanel extends JPanel {
     /**
      * Creates a MovingShapePanel in a frame and starts the animation.
      * 
-     * @param theArgs Command line parameters - ignored in this program
+     * @param args Command line parameters - ignored in this program
      */
-    public static void main(final String[] theArgs) {
+    public static void main(final String[] args) {
         //Schedule a job for the event dispatch thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(LotsOfMovingShapesPanel::createAndShowGui);
@@ -183,7 +183,7 @@ public final class LotsOfMovingShapesPanel extends JPanel {
     private final class MoveListener implements ActionListener {
         
         @Override
-        public void actionPerformed(final ActionEvent theEvent) {
+        public void actionPerformed(final ActionEvent event) {
             // we don't really care what the event is; we know this will only be
             // called by the timer
 
@@ -206,18 +206,7 @@ public final class LotsOfMovingShapesPanel extends JPanel {
                 for (int j = i + 1; j < myMovingShapes.size();  j++) {
                     final Ball otherBall = myMovingShapes.get(j);
                     if (ball.collide(otherBall)) {
-                        if (ball.getMyHorizontalMove() == otherBall.getMyHorizontalMove()) {
-                            ball.setMyVerticalMove(-ball.getMyVerticalMove());
-                            otherBall.setMyVerticalMove(-otherBall.getMyVerticalMove());
-                        } else if (ball.getMyVerticalMove() == otherBall.getMyVerticalMove()) {
-                            ball.setMyHorizontalMove(-ball.getMyHorizontalMove()); 
-                            otherBall.setMyHorizontalMove(-otherBall.getMyHorizontalMove()); 
-                        } else {
-                            ball.setMyHorizontalMove(-ball.getMyHorizontalMove()); 
-                            ball.setMyVerticalMove(-ball.getMyVerticalMove());
-                            otherBall.setMyHorizontalMove(-otherBall.getMyHorizontalMove()); 
-                            otherBall.setMyVerticalMove(-otherBall.getMyVerticalMove());
-                        }
+                        bounce(ball, otherBall);
                     }
                     
                 }
@@ -226,33 +215,54 @@ public final class LotsOfMovingShapesPanel extends JPanel {
             repaint();
         }
 
+        /**
+         * Changes the direction of two balls that have collided.
+         *
+         * @param ball one of the balls in the collision
+         * @param otherBall the other ball in the collision
+         */
+        private void bounce(final Ball ball, final Ball otherBall) {
+            if (ball.getMyHorizontalMove() == otherBall.getMyHorizontalMove()) {
+                ball.setMyVerticalMove(-ball.getMyVerticalMove());
+                otherBall.setMyVerticalMove(-otherBall.getMyVerticalMove());
+            } else if (ball.getMyVerticalMove() == otherBall.getMyVerticalMove()) {
+                ball.setMyHorizontalMove(-ball.getMyHorizontalMove());
+                otherBall.setMyHorizontalMove(-otherBall.getMyHorizontalMove());
+            } else {
+                ball.setMyHorizontalMove(-ball.getMyHorizontalMove());
+                ball.setMyVerticalMove(-ball.getMyVerticalMove());
+                otherBall.setMyHorizontalMove(-otherBall.getMyHorizontalMove());
+                otherBall.setMyVerticalMove(-otherBall.getMyVerticalMove());
+            }
+        }
+
         /** 
          * Updates the horizontal move to keep the shape on screen. 
-         * @param theBall the object to update 
+         * @param ball the object to update 
          */
-        private void updateHorizontalMove(final Ball theBall) {
-            if (theBall.getMyMovingShape().getFrame().getMinX() < 0) {
+        private void updateHorizontalMove(final Ball ball) {
+            if (ball.getMyMovingShape().getFrame().getMinX() < 0) {
                 // change direction
-                theBall.myHorizontalMove = ANIMATION_STEP;
-            } else if (theBall.getMyMovingShape().getFrame().getMaxX()
+                ball.myHorizontalMove = ANIMATION_STEP;
+            } else if (ball.getMyMovingShape().getFrame().getMaxX()
                       > LotsOfMovingShapesPanel.this.getWidth()) {
                 // change direction
-                theBall.myHorizontalMove = -ANIMATION_STEP;
+                ball.myHorizontalMove = -ANIMATION_STEP;
             }
         }
 
         /** 
          * Updates the vertical move to keep the shape on screen. 
-         * @param theBall the object to update 
+         * @param ball the object to update 
          */
-        private void updateVerticalMove(final Ball theBall) {
-            if (theBall.getMyMovingShape().getFrame().getMinY() < 0) {
+        private void updateVerticalMove(final Ball ball) {
+            if (ball.getMyMovingShape().getFrame().getMinY() < 0) {
                 // change direction
-                theBall.myVerticalMove = ANIMATION_STEP;
-            } else if (theBall.getMyMovingShape().getFrame().getMaxY()
+                ball.myVerticalMove = ANIMATION_STEP;
+            } else if (ball.getMyMovingShape().getFrame().getMaxY()
                      > LotsOfMovingShapesPanel.this.getHeight()) {
                 // change direction
-                theBall.myVerticalMove = -ANIMATION_STEP;
+                ball.myVerticalMove = -ANIMATION_STEP;
             }
         }
     } // end of MoveListener
@@ -264,15 +274,15 @@ public final class LotsOfMovingShapesPanel extends JPanel {
     class MouseClickListener extends MouseInputAdapter {
         
         @Override
-        public void mouseClicked(final MouseEvent theEvent) {            
+        public void mouseClicked(final MouseEvent event) {            
             final int xDir = getRandomDirection();
             final int yDir = getRandomDirection();
             
-            final int centerX = theEvent.getX() - BOUNDING_BOX_SIDE / 2;
-            final int centerY = theEvent.getY() - BOUNDING_BOX_SIDE / 2;
+            final int centerX = event.getX() - BOUNDING_BOX_SIDE / 2;
+            final int centerY = event.getY() - BOUNDING_BOX_SIDE / 2;
             final String color;
             
-            if (theEvent.getButton() == MouseEvent.BUTTON1) {
+            if (event.getButton() == MouseEvent.BUTTON1) {
                 color = UW_PURPLE;
             } else {
                 color = UW_GOLD;                
@@ -331,11 +341,11 @@ public final class LotsOfMovingShapesPanel extends JPanel {
         /**
          * Initialize the fields.
          *
-         * @param theMovingShape the shape to move
+         * @param movingShape the shape to move
          */
-        Ball(final Ellipse2D theMovingShape) {
+        Ball(final Ellipse2D movingShape) {
             super();
-            myMovingShape = theMovingShape;
+            myMovingShape = movingShape;
             myHorizontalMove = LotsOfMovingShapesPanel.ANIMATION_STEP;
             myVerticalMove = LotsOfMovingShapesPanel.ANIMATION_STEP;
             myColor = Color.decode(UW_PURPLE);
@@ -344,18 +354,18 @@ public final class LotsOfMovingShapesPanel extends JPanel {
         /**
          * Initialize the fields. 
          * 
-         * @param theMovingShape the shape to move
-         * @param theHorizontalMove the initial horizontal direction
-         * @param theVerticalMove the initial vertical direction
-         * @param theColor the color of this ball 
+         * @param movingShape the shape to move
+         * @param horizontalMove the initial horizontal direction
+         * @param verticalMove the initial vertical direction
+         * @param color the color of this ball 
          */
-        Ball(final Ellipse2D theMovingShape, final int theHorizontalMove,
-             final int theVerticalMove, final Color theColor) {
+        Ball(final Ellipse2D movingShape, final int horizontalMove,
+             final int verticalMove, final Color color) {
             super();
-            myMovingShape = theMovingShape;
-            myHorizontalMove = theHorizontalMove;
-            myVerticalMove = theVerticalMove;
-            myColor = theColor;
+            myMovingShape = movingShape;
+            myHorizontalMove = horizontalMove;
+            myVerticalMove = verticalMove;
+            myColor = color;
         }        
 
         /**
@@ -376,15 +386,15 @@ public final class LotsOfMovingShapesPanel extends JPanel {
 
         /**
          * Sets the horizontal vector. 
-         * @param theHorizontalMove the horizontal vector must be a 1 or -1
-         * @throws IllegalArgumentException when theHorizontalMove is not 1 or -1
+         * @param horizontalMove the horizontal vector must be a 1 or -1
+         * @throws IllegalArgumentException when horizontalMove is not 1 or -1
          */
-        public void setMyHorizontalMove(final int theHorizontalMove) {
-            if (theHorizontalMove != 1 && theHorizontalMove != -1) {
+        public void setMyHorizontalMove(final int horizontalMove) {
+            if (horizontalMove != 1 && horizontalMove != -1) {
                 throw new IllegalArgumentException(
-                        "Horizontal Vector must be 1 or -1. Was: " + theHorizontalMove);
+                        "Horizontal Vector must be 1 or -1. Was: " + horizontalMove);
             }
-            myHorizontalMove = theHorizontalMove;
+            myHorizontalMove = horizontalMove;
         }
 
         /**
@@ -397,29 +407,29 @@ public final class LotsOfMovingShapesPanel extends JPanel {
 
         /**
          * Sets the vertical vector. 
-         * @param theVerticalMove the vertical vector must be a 1 or -1
-         * @throws IllegalArgumentException when theVerticalMove is not 1 or -1
+         * @param verticalMove the vertical vector must be a 1 or -1
+         * @throws IllegalArgumentException when verticalMove is not 1 or -1
          */
-        public void setMyVerticalMove(final int theVerticalMove) {
-            if (theVerticalMove != 1 && theVerticalMove != -1) {
+        public void setMyVerticalMove(final int verticalMove) {
+            if (verticalMove != 1 && verticalMove != -1) {
                 throw new IllegalArgumentException(
-                        "Vertical Vector must be 1 or -1. Was: " + theVerticalMove);
+                        "Vertical Vector must be 1 or -1. Was: " + verticalMove);
             }
-            myVerticalMove = theVerticalMove;
+            myVerticalMove = verticalMove;
         }
         
         /**
-         * Returns true when the distance between this ball and theOtherBall is 
+         * Returns true when the distance between this ball and otherBall is 
          * less than or equal to the diameter of the ball. This works only because
          * the balls have same size. 
          * 
-         * @param theOtherBall the Ball object to check for collision with
+         * @param otherBall the Ball object to check for collision with
          * @return true if the balls collide. 
          */
-        public boolean collide(final Ball theOtherBall) {
+        public boolean collide(final Ball otherBall) {
             final double distance = Math.hypot(
-                myMovingShape.getCenterX() - theOtherBall.myMovingShape.getCenterX(), 
-                myMovingShape.getCenterY() - theOtherBall.myMovingShape.getCenterY());       
+                myMovingShape.getCenterX() - otherBall.myMovingShape.getCenterX(), 
+                myMovingShape.getCenterY() - otherBall.myMovingShape.getCenterY());       
             return distance <= myMovingShape.getWidth();
             
         }

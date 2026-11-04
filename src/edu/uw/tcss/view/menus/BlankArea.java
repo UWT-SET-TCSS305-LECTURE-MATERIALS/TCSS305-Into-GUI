@@ -43,7 +43,7 @@ import javax.swing.JLabel;
  *
  * @author Oracle and/or its affiliates
  * @author Charles Bryan
- * @version Autumn 2023
+ * @version Autumn 2026
  */
 @SuppressWarnings("PublicMethodNotExposedInInterface") // Use of Overridden public methods
 public final class BlankArea extends JLabel {
@@ -67,11 +67,11 @@ public final class BlankArea extends JLabel {
     /**
      * Constructs a BlankArea given the color.
      * 
-     * @param theColor the color to set this area to
+     * @param color the color to set this area to
      */
-    public BlankArea(final Color theColor) {
+    public BlankArea(final Color color) {
         super();
-        setBackground(theColor);
+        setBackground(color);
         setOpaque(true);
         setBorder(BorderFactory.createLineBorder(Color.black));
     }

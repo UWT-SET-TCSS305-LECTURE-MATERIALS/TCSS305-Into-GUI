@@ -10,7 +10,7 @@ import javax.swing.JTabbedPane;
  * Use the Panels built earlier to save having to re-write code. 
  * 
  * @author Charles Bryan
- * @version Autumn 2023
+ * @version Autumn 2026
  */
 public class TabbedPaneLayout extends JPanel {
 
@@ -99,9 +99,9 @@ public class TabbedPaneLayout extends JPanel {
      * It is OK, even typical to include a main method 
      * in the same class file as a GUI for testing purposes. 
      * 
-     * @param theArgs Command line arguments, ignored.
+     * @param args Command line arguments, ignored.
      */
-    public static void main(final String[] theArgs) {
+    public static void main(final String[] args) {
         javax.swing.SwingUtilities.invokeLater(TabbedPaneLayout::createAndShowGui);
     }
 }

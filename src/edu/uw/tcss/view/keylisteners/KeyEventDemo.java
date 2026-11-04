@@ -51,7 +51,7 @@ import javax.swing.JTextField;
  * 
  *  @author Oracle and/or its affiliates
  *  @author Charles Bryan
- *  @version Autumn 2023 */
+ *  @version Autumn 2026 */
 public class KeyEventDemo extends JPanel implements ActionListener {
 
     /**
@@ -62,7 +62,7 @@ public class KeyEventDemo extends JPanel implements ActionListener {
     private static final long serialVersionUID = 1L;
     
     /** Saves the systems newline character. */
-    private static final String NEWLINE = System.getProperty("line.separator");
+    private static final String NEWLINE = System.lineSeparator();
     
     /** The default field size. */
     private static final int FIELD_SIZE = 10;
@@ -73,7 +73,7 @@ public class KeyEventDemo extends JPanel implements ActionListener {
     /** The default width. */
     private static final int HEIGHT = 400;
     
-    /** Where the output goes! */
+    /** Where the output goes. */
     private final JTextArea myDisplayArea;
     
     /** The area where you type. */
@@ -81,9 +81,9 @@ public class KeyEventDemo extends JPanel implements ActionListener {
 
     /**
      * Constructs a KeyEventDemo.
-     * @param theTitle the tile of this frame.
+     * @param title the tile of this frame.
      */
-    public KeyEventDemo(final String theTitle) {
+    public KeyEventDemo(final String title) {
         super();
         myTypingArea = new JTextField(FIELD_SIZE);
         myDisplayArea = new JTextArea();
@@ -122,7 +122,7 @@ public class KeyEventDemo extends JPanel implements ActionListener {
 
     
     @Override
-    public void actionPerformed(final ActionEvent theEvent) {
+    public void actionPerformed(final ActionEvent event) {
         //Clear the text components.
         myDisplayArea.setText("");
         myTypingArea.setText("");
@@ -139,28 +139,28 @@ public class KeyEventDemo extends JPanel implements ActionListener {
      * but if you put them in a String, the characters
      * afterward won't show up in the text area.)
      * 
-     * @param theEvent the event object 
-     * @param theKeyStatus description of what happened
+     * @param event the event object 
+     * @param keyStatus description of what happened
      */
     @SuppressWarnings("OverlyLongMethod") // Example code from Oracle
-    private void displayInfo(final KeyEvent theEvent, final String theKeyStatus) {
+    private void displayInfo(final KeyEvent event, final String keyStatus) {
         
         //You should only rely on the key char if the event
         //is a key typed event.
-        final int id = theEvent.getID();
+        final int id = event.getID();
         final String keyString;
         if (id == KeyEvent.KEY_TYPED) {
-            final char c = theEvent.getKeyChar();
+            final char c = event.getKeyChar();
             keyString = "key character = '" + c + "'";
         } else {
-            final int keyCode = theEvent.getKeyCode();
+            final int keyCode = event.getKeyCode();
             keyString = "key code = " + keyCode
                     + " ("
                     + KeyEvent.getKeyText(keyCode)
                     + ')';
         }
         
-        final int modifiersEx = theEvent.getModifiersEx();
+        final int modifiersEx = event.getModifiersEx();
         final StringBuilder modString = new StringBuilder(44);
         modString.append("extended modifiers = ");
         modString.append(modifiersEx);
@@ -176,17 +176,17 @@ public class KeyEventDemo extends JPanel implements ActionListener {
         
         final StringBuilder actionString = new StringBuilder(); 
         actionString.append("action key? ");
-        if (theEvent.isActionKey()) {
+        if (event.isActionKey()) {
             actionString.append("YES");
         } else {
             actionString.append("NO");
         }
 
-        final StringBuilder locationString = buildEventDescription(theEvent);
+        final StringBuilder locationString = buildEventDescription(event);
 
         final char tab = '\t';
         
-        myDisplayArea.append(theKeyStatus + NEWLINE
+        myDisplayArea.append(keyStatus + NEWLINE
                 + tab + keyString + NEWLINE
                 + tab + modString + NEWLINE
                 + tab + actionString + NEWLINE
@@ -194,10 +194,10 @@ public class KeyEventDemo extends JPanel implements ActionListener {
         myDisplayArea.setCaretPosition(myDisplayArea.getDocument().getLength());
     }
 
-    private StringBuilder buildEventDescription(final KeyEvent theEvent) {
+    private StringBuilder buildEventDescription(final KeyEvent event) {
         final StringBuilder locationString = new StringBuilder(21);
         locationString.append("key location: ");
-        final int location = theEvent.getKeyLocation();
+        final int location = event.getKeyLocation();
         if (location == KeyEvent.KEY_LOCATION_STANDARD) {
             locationString.append("standard");
         } else if (location == KeyEvent.KEY_LOCATION_LEFT) {
@@ -243,9 +243,9 @@ public class KeyEventDemo extends JPanel implements ActionListener {
      * It is OK, even typical to include a main method 
      * in the same class file as a GUI for testing purposes. 
      * 
-     * @param theArgs Command line arguments, ignored.
+     * @param args Command line arguments, ignored.
      */
-    public static void main(final String[] theArgs) {
+    public static void main(final String[] args) {
         
         //Schedule a job for event dispatch thread:
         //creating and showing this application's GUI.
@@ -254,18 +254,18 @@ public class KeyEventDemo extends JPanel implements ActionListener {
 
     private final class MyKeyAdapter extends KeyAdapter {
         @Override
-        public void keyTyped(final KeyEvent theEvent) {
-            displayInfo(theEvent, "KEY TYPED: ");
+        public void keyTyped(final KeyEvent event) {
+            displayInfo(event, "KEY TYPED: ");
         }
 
         @Override
-        public void keyPressed(final KeyEvent theEvent) {
-            displayInfo(theEvent, "KEY PRESSED: ");
+        public void keyPressed(final KeyEvent event) {
+            displayInfo(event, "KEY PRESSED: ");
         }
 
         @Override
-        public void keyReleased(final KeyEvent theEvent) {
-            displayInfo(theEvent, "KEY RELEASED: ");
+        public void keyReleased(final KeyEvent event) {
+            displayInfo(event, "KEY RELEASED: ");
         }
     }
 

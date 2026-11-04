@@ -7,7 +7,7 @@ import java.util.logging.Logger;
  * A utility class to centralize Logging.
  *
  * @author Charles Bryan
- * @version 1.0
+ * @version Autumn 2026
  */
 public final class LoggerManager {
 
@@ -30,26 +30,26 @@ public final class LoggerManager {
 
     /**
      * Log an INFO level message to the current Logger.
-     * @param theMessage the message to log.
+     * @param message the message to log.
      */
-    public static void info(final Object theMessage) {
-        LOGGER.info(theMessage.toString());
+    public static void info(final Object message) {
+        LOGGER.info(message.toString());
     }
 
     /**
      * Log a WARNING level message to the current Logger.
-     * @param theMessage the message to log.
+     * @param message the message to log.
      */
-    public static void warning(final Object theMessage) {
-        LOGGER.warning(theMessage.toString());
+    public static void warning(final Object message) {
+        LOGGER.warning(message.toString());
     }
 
     /**
      * Log an ERROR level message to the current Logger.
-     * @param theMessage the message to log.
+     * @param message the message to log.
      */
-    public static void error(final Object theMessage) {
-        LOGGER.severe(theMessage.toString());
+    public static void error(final Object message) {
+        LOGGER.severe(message.toString());
     }
 
 }

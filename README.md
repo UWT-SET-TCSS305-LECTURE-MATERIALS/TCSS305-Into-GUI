@@ -1,19 +1,23 @@
-# TCSS305-Intro-GUI
+# TCSS305-Into-GUI
 
-TCSS 305 Introduction to GUI and Event Driven Programming
+TCSS 305 Introduction to GUI and Event-Driven Programming
 
 TCSS 305 - Charles Bryan
 
-Autumn 2023
+Autumn 2026
 
-This is the example code for multiple GUI concepts and components.
+Example code for the GUI concepts and Swing components covered in lecture.
 
-Included:
+Packages, all under `edu.uw.tcss.view`:
 
-- First Event handlers - ActionListeners (first.actionlisteners package)
-- Swing Layout managers (layouts package)
-- Mousse and Key Listeners (layouts.menu and keylisteners packages)
-- 2D Graphics (graphics package)
-- 2D Graphics animation (graphics.animation package)
+- `first.actionlisteners`: first event handlers with `ActionListener`
+- `layouts`: Swing layout managers
+- `mouselisteners`: mouse listeners
+- `keylisteners`: key listeners
+- `menus`: menus and menu items
+- `graphics`: 2D graphics
+- `graphics.animation`: 2D graphics animation with a Swing `Timer`
 
-*Note: most classes are standalone and include a dedicated main method for individual execution. 
+`edu.uw.tcss.logging` holds the `LoggerManager` helper.
+
+Most classes are standalone and include their own `main` method, so you can run each one by itself.

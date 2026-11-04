@@ -65,7 +65,7 @@ import javax.swing.event.MouseInputAdapter;
  * 
  * @author Oracle and/or its affiliates
  * @author Charles Bryan
- * @version Autumn 2023
+ * @version Autumn 2026
  */
 public class MenuExample extends JPanel {
 
@@ -77,7 +77,7 @@ public class MenuExample extends JPanel {
     private static final long serialVersionUID = 8452917670991316606L; 
     
     /** Saves the systems newline character. */
-    private static final String NEWLINE = System.getProperty("line.separator");
+    private static final String NEWLINE = System.lineSeparator();
     
     /** The default border size. */
     private static final int BORDER_SIZE = 20;
@@ -91,7 +91,7 @@ public class MenuExample extends JPanel {
     /** The area for the mouse demonstration. */
     private final BlankArea myBlankArea;
     
-    /** Where the output goes! */
+    /** Where the output goes. */
     private final JTextArea myTextArea;
     
     /** CheckBox determining if logging is on or off. */
@@ -143,13 +143,13 @@ public class MenuExample extends JPanel {
      * to be called where access to a JFrame occurs. You attach
      * a MenuBar to a Frame, not a Panel. 
      * 
-     * @param theFrame the containing JFrame of this menu bar
+     * @param frame the containing JFrame of this menu bar
      * @return the menu bar for this GUI
      */
-    private JMenuBar createMenu(final JFrame theFrame) {
+    private JMenuBar createMenu(final JFrame frame) {
         final JMenuBar menuBar = new JMenuBar();
          
-        menuBar.add(buildFileMenu(theFrame));
+        menuBar.add(buildFileMenu(frame));
         menuBar.add(buildColorButtonMenu());
         menuBar.add(buildLoggingMenu());
         
@@ -159,10 +159,10 @@ public class MenuExample extends JPanel {
     /**
      * Builds a menu with some options. 
      * 
-     * @param theFrame the containing JFrame of this menu bar
+     * @param frame the containing JFrame of this menu bar
      * @return a "file" menu with some menu items
      */
-    private JMenu buildFileMenu(final JFrame theFrame) {
+    private JMenu buildFileMenu(final JFrame frame) {
         final JMenu menu = new JMenu("File");
         menu.setMnemonic(KeyEvent.VK_F);
         
@@ -180,8 +180,8 @@ public class MenuExample extends JPanel {
         
         final JMenuItem exitItem = new JMenuItem("Exit", icon);
         exitItem.setMnemonic(KeyEvent.VK_X);
-        exitItem.addActionListener(theEvent ->
-                theFrame.dispatchEvent(new WindowEvent(theFrame, WindowEvent.WINDOW_CLOSING)));
+        exitItem.addActionListener(event ->
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING)));
         
         menu.add(exitItem);
         return menu;
@@ -204,13 +204,13 @@ public class MenuExample extends JPanel {
     /**
      * Builds a simple menu item. 
      * 
-     * @param theText the text to appear on the menu item
+     * @param text the text to appear on the menu item
      * @return a simple menu item
      */
-    private JMenuItem buildSimpleMenuItem(final String theText) {
-        final JMenuItem item = new JMenuItem(theText);
-        item.addActionListener(theEvent ->
-                JOptionPane.showMessageDialog(MenuExample.this, theText));
+    private JMenuItem buildSimpleMenuItem(final String text) {
+        final JMenuItem item = new JMenuItem(text);
+        item.addActionListener(event ->
+                JOptionPane.showMessageDialog(MenuExample.this, text));
         return item;
     }
     
@@ -225,13 +225,7 @@ public class MenuExample extends JPanel {
         
         final JMenuItem chooseColorItem = new JMenuItem("Choose Color");
         final ButtonGroup group = new ButtonGroup();
-        chooseColorItem.addActionListener(theEvent -> {
-            final Color result = JColorChooser.showDialog(null, "A Color Chooser", null);
-            if (result != null) {
-                myBlankArea.setBackground(result);
-                group.clearSelection();
-            }
-        });
+        chooseColorItem.addActionListener(event -> chooseColor(group));
         
         colorMenu.add(chooseColorItem);
         colorMenu.addSeparator();
@@ -246,20 +240,33 @@ public class MenuExample extends JPanel {
     /**
      * Creates a JRadioButtonMenuItem with a color action. 
      * 
-     * @param theName the text to go on this item
-     * @param theColor the color to set the action
-     * @param theGroup the ButtonGroup to add this Radio Button to
+     * @param name the text to go on this item
+     * @param color the color to set the action
+     * @param group the ButtonGroup to add this Radio Button to
      * @return a a JRadioButtonMenuItem with a color action
      */
-    private JRadioButtonMenuItem createColorItems(final String theName, 
-            final Color theColor, final ButtonGroup theGroup) {
+    private JRadioButtonMenuItem createColorItems(final String name, 
+            final Color color, final ButtonGroup group) {
         
-        final JRadioButtonMenuItem colorItem = new JRadioButtonMenuItem(theName);
-        theGroup.add(colorItem);
-        colorItem.addActionListener(theEvent -> myBlankArea.setBackground(theColor));
+        final JRadioButtonMenuItem colorItem = new JRadioButtonMenuItem(name);
+        group.add(colorItem);
+        colorItem.addActionListener(event -> myBlankArea.setBackground(color));
         return colorItem;
     }
     
+    /**
+     * Shows a color chooser and sets the background to the chosen color.
+     *
+     * @param group the radio button group to clear when a color is chosen
+     */
+    private void chooseColor(final ButtonGroup group) {
+        final Color result = JColorChooser.showDialog(null, "A Color Chooser", null);
+        if (result != null) {
+            myBlankArea.setBackground(result);
+            group.clearSelection();
+        }
+    }
+
     /**
      * Builds a simple menu item. 
      * 
@@ -277,14 +284,8 @@ public class MenuExample extends JPanel {
         myLogging.setSelected(true);
         //Why don't I do anything in here with the MouseEvents/Text area?
         //go check out eventOutput()
-        myLogging.addActionListener(theEvent -> {
-            if (myLogging.isSelected()) {
-                myLogging.setText(onMsg);
-            } else {
-                myLogging.setText(offMsg);
-            }
-
-        });
+        myLogging.addActionListener(
+            event -> myLogging.setText(myLogging.isSelected() ? onMsg : offMsg));
         
         loggingMenu.add(myLogging);
         return loggingMenu;
@@ -293,17 +294,17 @@ public class MenuExample extends JPanel {
     /**
      * Helper method for when one of the demo MouseEvents happens. 
      * 
-     * @param theEventDescription the description of what happened
-     * @param theEvent the event object that called this method
+     * @param eventDescription the description of what happened
+     * @param event the event object that called this method
      */
-    private void eventOutput(final String theEventDescription, final MouseEvent theEvent) {
+    private void eventOutput(final String eventDescription, final MouseEvent event) {
         //Check to see if the JCheckBoxMenuItem in the menu bar is selected. If it is,
         //display (log) the Events occurring this demo.
         if (myLogging.isSelected()) {
-            myTextArea.append(theEventDescription
-                    + " (" + theEvent.getX() + "," + theEvent.getY()
+            myTextArea.append(eventDescription
+                    + " (" + event.getX() + "," + event.getY()
                     + ") detected on "
-                    + theEvent.getComponent().getClass().getName()
+                    + event.getComponent().getClass().getName()
                     + NEWLINE);
             myTextArea.setCaretPosition(myTextArea.getDocument().getLength());
         }
@@ -314,10 +315,10 @@ public class MenuExample extends JPanel {
      * It is OK, even typical to include a main method 
      * in the same class file as a GUI for testing purposes. 
      * 
-     * @param theArgs Command line arguments, ignored.
+     * @param args Command line arguments, ignored.
      */
     @SuppressWarnings("CommentedOutCode") //suppressed to demo different LaFs
-    public static void main(final String[] theArgs) {
+    public static void main(final String[] args) {
         /* 
          * Use an appropriate Look and Feel 
          * https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
@@ -358,8 +359,8 @@ public class MenuExample extends JPanel {
         frame.setJMenuBar(newContentPane.createMenu(frame));
         frame.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) {
-                System.out.println("Weeeeeeeeee");
+            public void windowClosing(final WindowEvent event) {
+                LoggerManager.info("Weeeeeeeeee");
             }
         });
         
@@ -372,49 +373,49 @@ public class MenuExample extends JPanel {
      * A MouseInputAdapter implementation specific to this GUI.
      * 
      * @author Charles Bryan
-     * @version Autumn 2015 
+     * @version Autumn 2026
      *
      */
     class MyMouseInputAdapter extends MouseInputAdapter {
         
 //        //these methods are found in MouseListener
         @Override
-        public void mousePressed(final MouseEvent theEvent) {
-            eventOutput(theEvent.getButton() + " Mouse pressed (# of clicks: "
-                    + theEvent.getClickCount() + ')', theEvent);
+        public void mousePressed(final MouseEvent event) {
+            eventOutput(event.getButton() + " Mouse pressed (# of clicks: "
+                    + event.getClickCount() + ')', event);
         }
         
         @Override
-        public void mouseReleased(final MouseEvent theEvent) {
+        public void mouseReleased(final MouseEvent event) {
             eventOutput("Mouse released (# of clicks: "
-                    + theEvent.getClickCount() + ')', theEvent);
+                    + event.getClickCount() + ')', event);
         }
         
         @Override
-        public void mouseEntered(final MouseEvent theEvent) {
-            eventOutput("Mouse entered", theEvent);
+        public void mouseEntered(final MouseEvent event) {
+            eventOutput("Mouse entered", event);
         }
         
         @Override
-        public void mouseExited(final MouseEvent theEvent) {
-            eventOutput("Mouse exited", theEvent);
+        public void mouseExited(final MouseEvent event) {
+            eventOutput("Mouse exited", event);
         }
         
         @Override
-        public void mouseClicked(final MouseEvent theEvent) {
+        public void mouseClicked(final MouseEvent event) {
             eventOutput("Mouse clicked (# of clicks: "
-                    + theEvent.getClickCount() + ')', theEvent);
+                    + event.getClickCount() + ')', event);
         }
         
         //These methods are found in MouseMotionListener
         @Override
-        public void mouseMoved(final MouseEvent theEvent) {
-            eventOutput("Mouse moved", theEvent);
+        public void mouseMoved(final MouseEvent event) {
+            eventOutput("Mouse moved", event);
         }
         
         @Override
-        public void mouseDragged(final MouseEvent theEvent) {
-            eventOutput("Mouse dragged", theEvent);
+        public void mouseDragged(final MouseEvent event) {
+            eventOutput("Mouse dragged", event);
         }
     }
 }

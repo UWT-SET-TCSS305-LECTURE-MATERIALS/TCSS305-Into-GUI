@@ -30,7 +30,7 @@ import javax.swing.Timer;
  * 
  * @author Alan Fowler
  * @author Charles Bryan
- * @version Autumn 2016
+ * @version Autumn 2026
  */
 public class MovingShapePanel extends JPanel {
 
@@ -108,9 +108,9 @@ public class MovingShapePanel extends JPanel {
     }
 
     @Override
-    public void paintComponent(final Graphics theGraphics) {
-        super.paintComponent(theGraphics);
-        final Graphics2D g2d = (Graphics2D) theGraphics;
+    public void paintComponent(final Graphics graphics) {
+        super.paintComponent(graphics);
+        final Graphics2D g2d = (Graphics2D) graphics;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                              RenderingHints.VALUE_ANTIALIAS_ON);
         
@@ -154,9 +154,9 @@ public class MovingShapePanel extends JPanel {
     /**
      * Creates a MovingShapePanel in a frame and starts the animation.
      * 
-     * @param theArgs Command line parameters - ignored in this program
+     * @param args Command line parameters - ignored in this program
      */
-    public static void main(final String[] theArgs) {
+    public static void main(final String[] args) {
         //Schedule a job for the event dispatch thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(MovingShapePanel::createAndShowGui);
@@ -172,7 +172,7 @@ public class MovingShapePanel extends JPanel {
     private final class MoveListener implements ActionListener {
         
         @Override
-        public void actionPerformed(final ActionEvent theEvent) {
+        public void actionPerformed(final ActionEvent event) {
             // we don't really care what the event is; we know this will only be
             // called by the timer
 

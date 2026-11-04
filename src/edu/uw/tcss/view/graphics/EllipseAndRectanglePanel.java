@@ -22,7 +22,7 @@ import javax.swing.JPanel;
  * 
  * @author Alan Fowler
  * @author Charles Bryan
- * @version 1.2
+ * @version Autumn 2026
  */
 public class EllipseAndRectanglePanel extends JPanel {
 
@@ -67,13 +67,13 @@ public class EllipseAndRectanglePanel extends JPanel {
     /**
      * Paints some ellipses.
      * 
-     * @param theGraphics The graphics context to use for painting.
+     * @param graphics The graphics context to use for painting.
      */
     @SuppressWarnings("CommentedOutCode") //suppressed for the demo.
     @Override
-    public void paintComponent(final Graphics theGraphics) {
-        super.paintComponent(theGraphics);
-        final Graphics2D g2d = (Graphics2D) theGraphics;
+    public void paintComponent(final Graphics graphics) {
+        super.paintComponent(graphics);
+        final Graphics2D g2d = (Graphics2D) graphics;
 
         // for better graphics display
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -138,9 +138,9 @@ public class EllipseAndRectanglePanel extends JPanel {
     /**
      * Creates and displays an EllipsePanel.
      *
-     * @param theArgs Command line arguments (ignored).
+     * @param args Command line arguments (ignored).
      */
-    public static void main(final String... theArgs) {
+    public static void main(final String... args) {
         javax.swing.SwingUtilities.invokeLater(EllipseAndRectanglePanel::createAndShowGui);
     }
 }
