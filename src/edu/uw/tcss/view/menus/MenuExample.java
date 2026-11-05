@@ -36,6 +36,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -56,7 +57,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.event.MouseInputAdapter;
 
 
 
@@ -126,13 +126,13 @@ public class MenuExample extends JPanel {
         
         add(scrollPane);
         
-        final MouseInputAdapter mia = new MyMouseInputAdapter();
+        final MouseAdapter mouseAdapter = new MyMouseAdapter();
         //Register for mouse events on blankArea and panel.
-        myBlankArea.addMouseListener(mia);
-        myBlankArea.addMouseMotionListener(mia);
+        myBlankArea.addMouseListener(mouseAdapter);
+        myBlankArea.addMouseMotionListener(mouseAdapter);
         
-//        addMouseListener(mia);
-//        addMouseMotionListener(mia);
+//        addMouseListener(mouseAdapter);
+//        addMouseMotionListener(mouseAdapter);
 //
         setBorder(BorderFactory.createEmptyBorder(
                 BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE));
@@ -370,13 +370,13 @@ public class MenuExample extends JPanel {
     }
     
     /**
-     * A MouseInputAdapter implementation specific to this GUI.
+     * A MouseAdapter implementation specific to this GUI.
      * 
      * @author Charles Bryan
      * @version Autumn 2026
      *
      */
-    class MyMouseInputAdapter extends MouseInputAdapter {
+    class MyMouseAdapter extends MouseAdapter {
         
 //        //these methods are found in MouseListener
         @Override

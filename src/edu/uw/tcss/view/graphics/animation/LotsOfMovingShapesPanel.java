@@ -13,6 +13,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.io.Serial;
@@ -22,7 +23,6 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import javax.swing.event.MouseInputAdapter;
 
 /*
  * NOTE: This example is all in a single class which is NOT ideal. This class
@@ -271,7 +271,7 @@ public final class LotsOfMovingShapesPanel extends JPanel {
      * A class that listens for mouse click events and adds new
      * shapes to the panel when they happen. 
      */
-    class MouseClickListener extends MouseInputAdapter {
+    class MouseClickListener extends MouseAdapter {
         
         @Override
         public void mouseClicked(final MouseEvent event) {            

@@ -35,6 +35,7 @@ import edu.uw.tcss.logging.LoggerManager;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.Serial;
 import javax.swing.BorderFactory;
@@ -50,7 +51,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.event.MouseInputAdapter;
 
 
 /**
@@ -128,10 +128,10 @@ public class MouseEventsExample extends JPanel {
     }
 
     private void addListeners() {
-        final MouseInputAdapter mia = new MyMouseInputAdapter();
+        final MouseAdapter mouseAdapter = new MyMouseAdapter();
         //Register for mouse events on blankArea and panel.
-        myBlankArea.addMouseListener(mia);
-        myBlankArea.addMouseMotionListener(mia);
+        myBlankArea.addMouseListener(mouseAdapter);
+        myBlankArea.addMouseMotionListener(mouseAdapter);
     }
     
     /**
@@ -278,13 +278,13 @@ public class MouseEventsExample extends JPanel {
     }
     
     /**
-     * A MouseInputAdapter implementation specific to this GUI.
+     * A MouseAdapter implementation specific to this GUI.
      * 
      * @author Charles Bryan
      * @version Autumn 2026
      *
      */
-    class MyMouseInputAdapter extends MouseInputAdapter {
+    class MyMouseAdapter extends MouseAdapter {
         
 //        //these methods are found in MouseListener
         @Override
